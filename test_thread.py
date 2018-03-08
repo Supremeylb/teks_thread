@@ -24,4 +24,5 @@ class test_thread(object):
 ################################################################################
 if __name__ == '__main__':
 	record = test_thread()
+    record.suspend()
 	
