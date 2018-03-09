@@ -3,11 +3,13 @@
 
 import time
 import threading
+import beta
+
 class test_thread(object):
 	def __init__(self):
-		threading.Thread.__init__(self)
+		threading.Thread.__init__(self,rlock)
 		self.suspend_flag = False
- 		self.thread_rlock = threading.RLock()
+ 		self.thread_rlock = rlock
 
  	def suspend(self):
  		with self.thread_rlock:
@@ -23,6 +25,11 @@ class test_thread(object):
 
 ################################################################################
 if __name__ == '__main__':
-	record = test_thread()
-    record.suspend()
+    rlock = threading.RLock()
+	record = test_thread(rlock)
+    with self.thread_rlock:
+        print("now I put 1")
+    
+
+
 	
