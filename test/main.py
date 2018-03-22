@@ -11,24 +11,26 @@ from teks_monitor_recognize import Recognizer
 class Main(object):
 	"""docstring for Main"""
 	def __init__(self):
-		super(Main, self).__init__()
-		self.listen = Listener()
-		self.recognizer = Recognizer()
+		pass
 
 	def suspend(self):
 		self.suspend_flag = True
 	def is_suspend(self):
 		return self.suspend_flag
-	def main(self):
-		self.listen_thread.start()
-		self.listen_thread.join()
-	def wake_up(self):
+	def wake_up(self,listener, recognizer):
 		"""		
 		[ensure the Listener and Recognizer already to work ]
 		"""
-		self.listen_thread = threading.Thread(target=self.listen.run,name="listen_thread")
 		#after the listener get the message,recognizer go to the table to work
 		#after the recognizer has done,the boss says ok,and the listener works again
-if __name__ == '__main__':
+	def run(self, listener, recognizer):
+		self.wake_up(listener, recognizer)
 
+if __name__ == '__main__':
+	main = Main()
+	listen = Listener()
+	recognizer = Recognizer()
+	listen_thread = threading.Thread(target=listen.run,name="listen_thread")
+	recognizer_thread = threading.Thread(target=recognizer.run,name="recognizer_thread")
+	main_thread = threading.Thread(target=main.run,args=(listener, recognizer),name="main_thread")
 		
